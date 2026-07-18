@@ -1,4 +1,4 @@
-import type { EvidenceCapsule } from "@/lib/types"
+import type { ConsentReceipt, ConsentReceiptFieldDecision, EvidenceCapsule } from "@/lib/types"
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:4000"
 
@@ -31,5 +31,36 @@ export async function saveCapsule(capsule: EvidenceCapsule): Promise<EvidenceCap
     const body = await res.json().catch(() => null)
     throw new Error(body?.error ?? `Save failed: ${res.status}`)
   }
+  return res.json()
+}
+
+export async function fetchConsentReceipts(): Promise<ConsentReceipt[]> {
+  const res = await fetch(`${API_URL}/api/consent`)
+  if (!res.ok) throw new Error(`Failed to fetch consent receipts: ${res.status}`)
+  return res.json()
+}
+
+export async function submitConsent(request: {
+  study_id: string
+  study_name: string
+  purpose: string
+  recipient: string
+  fields: ConsentReceiptFieldDecision[]
+}): Promise<ConsentReceipt> {
+  const res = await fetch(`${API_URL}/api/consent`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(request)
+  })
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.error ?? `Consent submission failed: ${res.status}`)
+  }
+  return res.json()
+}
+
+export async function revokeConsent(receiptId: string): Promise<ConsentReceipt> {
+  const res = await fetch(`${API_URL}/api/consent/${receiptId}/revoke`, { method: "PATCH" })
+  if (!res.ok) throw new Error(`Failed to revoke consent: ${res.status}`)
   return res.json()
 }

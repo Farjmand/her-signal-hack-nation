@@ -24,9 +24,14 @@ export function EvidenceTimeline() {
         <SafetyBanner />
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-semibold">Your evidence timeline</h1>
-          <Link to="/" className={buttonVariants({ size: "sm" })}>
-            Capture new entry
-          </Link>
+          <div className="flex gap-2">
+            <Link to="/consent" className={buttonVariants({ size: "sm", variant: "outline" })}>
+              Share with research
+            </Link>
+            <Link to="/" className={buttonVariants({ size: "sm" })}>
+              Capture new entry
+            </Link>
+          </div>
         </div>
 
         {loading && <p className="text-sm text-muted-foreground">Loading...</p>}
