@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
@@ -30,6 +30,11 @@ export function CaptureScreen() {
     <main className="min-h-svh flex items-center justify-center p-8">
       <div className="w-full max-w-lg space-y-4">
         <SafetyBanner />
+        <div className="flex justify-end">
+          <Link to="/timeline" className="text-sm text-muted-foreground underline">
+            View timeline
+          </Link>
+        </div>
         <Card>
           <CardHeader>
             <CardTitle>What happened today?</CardTitle>

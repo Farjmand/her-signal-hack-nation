@@ -105,7 +105,10 @@ export function ReviewScreen() {
             <p className="text-sm text-muted-foreground">
               Your evidence capsule was recorded.
             </p>
-            <Button onClick={() => navigate("/")} className="w-full">
+            <Button onClick={() => navigate("/timeline")} className="w-full">
+              View timeline
+            </Button>
+            <Button onClick={() => navigate("/")} variant="outline" className="w-full">
               Capture another entry
             </Button>
           </CardContent>
