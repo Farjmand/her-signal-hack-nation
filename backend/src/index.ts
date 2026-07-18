@@ -3,6 +3,7 @@ import express from "express"
 import cors from "cors"
 import "./db.js"
 import { capsulesRouter } from "./routes/capsules.js"
+import { extractRouter } from "./routes/extract.js"
 
 const app = express()
 app.use(cors())
@@ -13,6 +14,7 @@ app.get("/health", (_req, res) => {
 })
 
 app.use("/api/capsules", capsulesRouter)
+app.use("/api/extract", extractRouter)
 
 const port = Number(process.env.PORT) || 4000
 app.listen(port, () => {
