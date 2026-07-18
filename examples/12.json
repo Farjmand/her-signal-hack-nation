@@ -1,0 +1,16 @@
+{
+  "source_text": "Ovulation pain on my left side, sharp for about 20 minutes then it faded, nothing I couldn't handle.",
+  "expected": {
+    "symptoms": [
+      "ovulation pain"
+    ],
+    "severity": "low",
+    "duration": "20 minutes",
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": "ovulation",
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

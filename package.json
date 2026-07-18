@@ -1,0 +1,28 @@
+{
+  "name": "hersignal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "validate:schemas": "npx ajv-cli compile -s schema/evidence-capsule.schema.json --spec=draft2020 -c ajv-formats && npx ajv-cli compile -s schema/consent-receipt.schema.json --spec=draft2020 -c ajv-formats",
+    "validate:examples": "tsx examples/validate.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "HerSignal — AI-assisted symptom-evidence companion for hormonal health",
+  "type": "module",
+  "private": "true",
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "ajv": "^8.20.0",
+    "ajv-cli": "^5.0.0",
+    "ajv-formats": "^3.0.1",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2"
+  }
+}

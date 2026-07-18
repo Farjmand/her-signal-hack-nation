@@ -1,0 +1,20 @@
+{
+  "source_text": "Lower back pain and bloating, feels like it's tied to my cycle, I'm probably a few days out from my period starting.",
+  "expected": {
+    "symptoms": [
+      "lower back pain",
+      "bloating"
+    ],
+    "severity": "medium",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": "a few days before period is expected to start",
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": [
+      "cycle_context"
+    ]
+  },
+  "notes": "User is uncertain about exact cycle timing ('probably') — needs_review on cycle_context."
+}

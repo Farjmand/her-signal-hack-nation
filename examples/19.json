@@ -1,0 +1,19 @@
+{
+  "source_text": "Spotting today, not on my usual cycle days, a little worried about it but not painful.",
+  "expected": {
+    "symptoms": [
+      "spotting"
+    ],
+    "severity": "low",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": "occurring outside expected cycle days",
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": [
+      "cycle_context"
+    ]
+  },
+  "notes": "Off-cycle bleeding the user flags as unusual/concerning — worth a review flag on cycle_context even though pain/severity is clear."
+}

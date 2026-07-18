@@ -1,0 +1,16 @@
+{
+  "source_text": "Hot flashes on and off all day, maybe six or seven of them, had to step out of a client call twice to cool off.",
+  "expected": {
+    "symptoms": [
+      "hot flashes"
+    ],
+    "severity": "medium",
+    "duration": "all day",
+    "functional_impact": "stepped out of a client call twice",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

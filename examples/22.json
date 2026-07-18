@@ -1,0 +1,17 @@
+{
+  "source_text": "Good day today actually, no real symptoms, slept 7 hours and felt normal.",
+  "expected": {
+    "symptoms": [
+      "none reported"
+    ],
+    "severity": "low",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": 7,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  },
+  "notes": "Negative/no-symptom day — tests that extraction doesn't hallucinate symptoms when the user reports feeling fine."
+}

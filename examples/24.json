@@ -1,0 +1,16 @@
+{
+  "source_text": "Pelvic pain flared up again around 3pm, I'd say a 7, had to cancel my evening plans with friends. This is maybe the fourth time this month.",
+  "expected": {
+    "symptoms": [
+      "pelvic pain"
+    ],
+    "severity": "high",
+    "duration": null,
+    "functional_impact": "cancelled evening plans with friends",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

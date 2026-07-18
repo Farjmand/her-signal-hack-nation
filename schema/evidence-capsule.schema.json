@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hersignal/schema/evidence-capsule.schema.json",
+  "title": "EvidenceCapsule",
+  "description": "A user-verified, structured record of a single patient-reported symptom experience. This schema describes what a person reported and how it affected their day — it is not a diagnosis, risk score, or clinical assessment, and no field in this schema represents a clinical judgment.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "reported_at",
+    "source_text",
+    "symptoms",
+    "severity",
+    "functional_impact",
+    "ai_confidence",
+    "needs_review",
+    "user_verified",
+    "consent_scope"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Unique identifier for this evidence capsule (UUID)."
+    },
+    "reported_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the user captured this experience."
+    },
+    "source_text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The original free-text note the user provided, verbatim. Retained so the user can always see what generated the structured fields."
+    },
+    "symptoms": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Symptom(s) as described by the user, in their own words or lightly normalized (e.g. 'pelvic pain'). Not a coded diagnosis list."
+    },
+    "severity": {
+      "$ref": "#/$defs/severity",
+      "description": "The user's own characterization of how intense the experience was."
+    },
+    "duration": {
+      "type": ["string", "null"],
+      "description": "How long the experience lasted, in the user's own terms (e.g. '2 hours', 'all day'). Free text, not a clinical duration code."
+    },
+    "functional_impact": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What the user reported this experience prevented or disrupted in daily life (e.g. 'left work early')."
+    },
+    "sleep_hours": {
+      "type": ["number", "null"],
+      "minimum": 0,
+      "maximum": 24,
+      "description": "Self-reported hours of sleep associated with this entry, if mentioned."
+    },
+    "cycle_context": {
+      "type": ["string", "null"],
+      "description": "Optional self-reported menstrual cycle context (e.g. 'day 3 of period'). Never inferred without the user stating it."
+    },
+    "hormone_therapy_or_contraception_context": {
+      "type": ["string", "null"],
+      "description": "Optional self-reported hormone therapy or contraception context, if mentioned by the user."
+    },
+    "wearable_context": {
+      "type": ["string", "null"],
+      "description": "Optional self-reported or user-supplied wearable data context (e.g. heart rate, temperature trend). Not automatically synced in the MVP."
+    },
+    "ai_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Overall model confidence in the extraction, prior to user review. Informational only — never used to auto-finalize a capsule."
+    },
+    "needs_review": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "symptoms",
+          "severity",
+          "duration",
+          "functional_impact",
+          "sleep_hours",
+          "cycle_context",
+          "hormone_therapy_or_contraception_context",
+          "wearable_context"
+        ]
+      },
+      "description": "Field names the extraction model flagged as ambiguous or low-confidence, requiring explicit user attention before acceptance. Empty array means nothing was flagged (not the same as user-verified)."
+    },
+    "user_verified": {
+      "type": "boolean",
+      "description": "True only after the user has explicitly reviewed and accepted every field. AI extraction alone never sets this to true."
+    },
+    "consent_scope": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of field names this capsule's owner has currently consented to share with research (see consent-receipt.schema.json for the full consent record). Empty by default."
+    }
+  },
+  "$defs": {
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "User-selected severity band. Reflects the user's own rating, not a clinical triage level."
+    }
+  }
+}

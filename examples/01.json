@@ -1,0 +1,16 @@
+{
+  "source_text": "I had sharp pelvic pain today, slept four hours, and had to leave work early.",
+  "expected": {
+    "symptoms": [
+      "pelvic pain"
+    ],
+    "severity": "high",
+    "duration": null,
+    "functional_impact": "left work early",
+    "sleep_hours": 4,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source_text": "Dizzy spell this afternoon out of nowhere, had to sit down at my desk for a bit, passed after maybe five minutes.",
+  "expected": {
+    "symptoms": [
+      "dizziness"
+    ],
+    "severity": "medium",
+    "duration": "about 5 minutes",
+    "functional_impact": "had to sit down at desk",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

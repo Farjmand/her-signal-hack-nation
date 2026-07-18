@@ -1,0 +1,16 @@
+{
+  "source_text": "Breast tenderness the past two days, pretty mild, notice it mostly when I'm getting dressed.",
+  "expected": {
+    "symptoms": [
+      "breast tenderness"
+    ],
+    "severity": "low",
+    "duration": "past two days",
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

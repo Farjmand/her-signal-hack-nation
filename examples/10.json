@@ -1,0 +1,16 @@
+{
+  "source_text": "Slept great last night, 8 hours, but woke up with joint pain in my hands that made it hard to type for the first hour of work.",
+  "expected": {
+    "symptoms": [
+      "joint pain"
+    ],
+    "severity": "low",
+    "duration": "first hour of work",
+    "functional_impact": "hard to type",
+    "sleep_hours": 8,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

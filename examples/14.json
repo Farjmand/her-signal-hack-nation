@@ -1,0 +1,16 @@
+{
+  "source_text": "IUD was inserted two days ago, cramping since then, worse than my usual period cramps, took some ibuprofen and it's manageable now.",
+  "expected": {
+    "symptoms": [
+      "cramping"
+    ],
+    "severity": "medium",
+    "duration": "since insertion two days ago",
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": "IUD inserted two days ago",
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

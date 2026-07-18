@@ -1,0 +1,21 @@
+{
+  "source_text": "Weird one today — some cramping, some fatigue, honestly could be a dozen things, hard to say what's really going on.",
+  "expected": {
+    "symptoms": [
+      "cramping",
+      "fatigue"
+    ],
+    "severity": "low",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": [
+      "symptoms",
+      "severity"
+    ]
+  },
+  "notes": "User explicitly signals uncertainty about what's happening ('could be a dozen things, hard to say') — both symptom set and severity should be flagged rather than confidently extracted."
+}

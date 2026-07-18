@@ -1,0 +1,17 @@
+{
+  "source_text": "Started HRT patches two weeks ago. Today had some light bloating and breast tenderness, much milder than before I started treatment.",
+  "expected": {
+    "symptoms": [
+      "bloating",
+      "breast tenderness"
+    ],
+    "severity": "low",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": "started HRT patches two weeks ago",
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

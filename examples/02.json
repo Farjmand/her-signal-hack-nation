@@ -1,0 +1,16 @@
+{
+  "source_text": "Woke up with a dull headache, lasted about 3 hours, took some water and pushed through my morning meetings.",
+  "expected": {
+    "symptoms": [
+      "headache"
+    ],
+    "severity": "low",
+    "duration": "3 hours",
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

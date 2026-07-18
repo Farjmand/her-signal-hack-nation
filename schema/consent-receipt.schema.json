@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/hersignal/schema/consent-receipt.schema.json",
+  "title": "ConsentReceipt",
+  "description": "A record of exactly what evidence-capsule fields a user agreed to share with a specific research study, for what purpose, and whether that consent is still active. This is the audit artifact behind ConsentLedger — it documents a sharing decision, it is not itself a data-sharing mechanism or a compliance certification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_id",
+    "study_id",
+    "study_name",
+    "purpose",
+    "recipient",
+    "fields",
+    "timestamp",
+    "schema_version",
+    "revoked"
+  ],
+  "properties": {
+    "receipt_id": {
+      "type": "string",
+      "description": "Unique identifier for this consent receipt (UUID)."
+    },
+    "study_id": {
+      "type": "string",
+      "description": "Identifier of the requesting study."
+    },
+    "study_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable name of the requesting study, shown to the user before they consent."
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The stated purpose for which the study is requesting data. Consent is purpose-limited to this statement."
+    },
+    "recipient": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The organization or research team receiving the de-identified data."
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/fieldDecision" },
+      "description": "Per-field-category grant/decline decisions the user made for this study's request."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this consent decision was recorded."
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of this consent-receipt schema the receipt was generated against, so older receipts remain interpretable as the schema evolves."
+    },
+    "revoked": {
+      "type": "boolean",
+      "description": "Whether the user has since revoked this consent. Revoked consents must be excluded from future export bundles."
+    },
+    "revoked_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Timestamp of revocation, if revoked is true; null otherwise."
+    }
+  },
+  "$defs": {
+    "fieldDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "granted"],
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Name of the evidence-capsule field category requested (e.g. 'symptoms', 'severity', 'cycle_context')."
+        },
+        "granted": {
+          "type": "boolean",
+          "description": "Whether the user granted sharing of this field category. Defaults to false unless explicitly toggled on by the user."
+        }
+      }
+    }
+  }
+}

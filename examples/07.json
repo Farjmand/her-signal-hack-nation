@@ -1,0 +1,16 @@
+{
+  "source_text": "Migraine hit hard around noon, had to lie down in a dark room for the rest of the afternoon and missed picking up my kid from school.",
+  "expected": {
+    "symptoms": [
+      "migraine"
+    ],
+    "severity": "high",
+    "duration": "rest of the afternoon",
+    "functional_impact": "missed picking up kid from school",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

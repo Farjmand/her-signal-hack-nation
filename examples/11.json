@@ -1,0 +1,21 @@
+{
+  "source_text": "Really don't know how to describe today. Just felt off, tired I guess, foggy. Didn't get much done.",
+  "expected": {
+    "symptoms": [
+      "fatigue",
+      "brain fog"
+    ],
+    "severity": "medium",
+    "duration": null,
+    "functional_impact": "didn't get much done",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": [
+      "symptoms",
+      "severity"
+    ]
+  },
+  "notes": "Vague, hedging language ('don't know how to describe', 'I guess') across symptom naming and severity — should flag both."
+}

@@ -1,0 +1,21 @@
+{
+  "source_text": "Mood's been all over the place today, kind of irritable, not sure if it's the new patch or just a bad day.",
+  "expected": {
+    "symptoms": [
+      "mood changes",
+      "irritability"
+    ],
+    "severity": "low",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": "possibly related to new hormone patch, user uncertain",
+    "wearable_context": null,
+    "needs_review": [
+      "hormone_therapy_or_contraception_context",
+      "severity"
+    ]
+  },
+  "notes": "User explicitly uncertain whether symptom is linked to the patch ('not sure if it's the new patch or just a bad day') — should flag hormone context and severity is understated/vague."
+}

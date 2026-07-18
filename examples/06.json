@@ -1,0 +1,19 @@
+{
+  "source_text": "Not sure if it's bad or just annoying today — some pelvic discomfort, kind of a 6 out of 10 I guess, still went to work fine.",
+  "expected": {
+    "symptoms": [
+      "pelvic discomfort"
+    ],
+    "severity": "medium",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": [
+      "severity"
+    ]
+  },
+  "notes": "Ambiguous severity: user gives a mid-scale number but hedges ('not sure if bad or just annoying') — should trigger needs_review on severity."
+}

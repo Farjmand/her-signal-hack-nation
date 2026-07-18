@@ -1,0 +1,17 @@
+{
+  "source_text": "Migraine and nausea together today, easily an 8 or 9, couldn't look at my screen, worked from bed with the lights off, only got through half my tasks.",
+  "expected": {
+    "symptoms": [
+      "migraine",
+      "nausea"
+    ],
+    "severity": "high",
+    "duration": null,
+    "functional_impact": "worked from bed, completed only half of planned tasks",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

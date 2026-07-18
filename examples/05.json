@@ -1,0 +1,17 @@
+{
+  "source_text": "Rough night. Barely slept, kept waking up hot and sweaty, my watch says I only got 2 hours of actual sleep.",
+  "expected": {
+    "symptoms": [
+      "night sweats",
+      "trouble sleeping"
+    ],
+    "severity": "medium",
+    "duration": null,
+    "functional_impact": "none reported",
+    "sleep_hours": 2,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": "watch recorded ~2 hours of sleep",
+    "needs_review": []
+  }
+}

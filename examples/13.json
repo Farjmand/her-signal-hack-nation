@@ -1,0 +1,16 @@
+{
+  "source_text": "Insomnia again, third night in a row, my sleep tracker says under 3 hours each night. Starting to really affect my focus at work.",
+  "expected": {
+    "symptoms": [
+      "insomnia"
+    ],
+    "severity": "high",
+    "duration": "third consecutive night",
+    "functional_impact": "affecting focus at work",
+    "sleep_hours": 3,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": "sleep tracker recorded under 3 hours nightly",
+    "needs_review": []
+  }
+}

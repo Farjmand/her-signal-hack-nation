@@ -1,0 +1,16 @@
+{
+  "source_text": "Started the new pill three weeks ago and I've had nausea most mornings since. Today was rough, could barely eat breakfast.",
+  "expected": {
+    "symptoms": [
+      "nausea"
+    ],
+    "severity": "medium",
+    "duration": null,
+    "functional_impact": "could barely eat breakfast",
+    "sleep_hours": null,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": "started new contraceptive pill three weeks ago",
+    "wearable_context": null,
+    "needs_review": []
+  }
+}

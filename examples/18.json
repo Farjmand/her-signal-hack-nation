@@ -1,0 +1,16 @@
+{
+  "source_text": "Nasty flare today, pelvic pain so bad I couldn't sit through my 2pm meeting, had to reschedule. Slept maybe 5 hours, kept waking up from the pain.",
+  "expected": {
+    "symptoms": [
+      "pelvic pain"
+    ],
+    "severity": "high",
+    "duration": null,
+    "functional_impact": "rescheduled a meeting",
+    "sleep_hours": 5,
+    "cycle_context": null,
+    "hormone_therapy_or_contraception_context": null,
+    "wearable_context": null,
+    "needs_review": []
+  }
+}
