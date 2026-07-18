@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate:schemas": "npx ajv-cli compile -s schema/evidence-capsule.schema.json --spec=draft2020 -c ajv-formats && npx ajv-cli compile -s schema/consent-receipt.schema.json --spec=draft2020 -c ajv-formats",
-    "validate:examples": "tsx examples/validate.ts"
+    "validate:examples": "tsx examples/validate.ts",
+    "benchmark": "tsx benchmark/run.ts"
   },
   "keywords": [],
   "author": "",
