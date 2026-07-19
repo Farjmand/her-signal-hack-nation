@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router"
+import type { ReactNode } from "react"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router"
 import { AppHeader } from "@/components/AppHeader"
 import { BottomNav } from "@/components/BottomNav"
 import { CaptureScreen } from "@/screens/CaptureScreen"
@@ -6,6 +7,16 @@ import { ReviewScreen } from "@/screens/ReviewScreen"
 import { EvidenceTimeline } from "@/screens/EvidenceTimeline"
 import { ConsentScreen } from "@/screens/ConsentScreen"
 import { ExportScreen } from "@/screens/ExportScreen"
+import { WelcomeScreen } from "@/screens/WelcomeScreen"
+import { hasStoredAge } from "@/lib/userProfile"
+
+// Every other screen assumes a stored age is available (used for per-entry
+// NHANES population context) -- redirect to onboarding rather than letting
+// screens handle a missing age individually.
+function RequireProfile({ children }: { readonly children: ReactNode }) {
+  if (!hasStoredAge()) return <Navigate to="/welcome" replace />
+  return children
+}
 
 function App() {
   return (
@@ -15,11 +26,47 @@ function App() {
           <AppHeader />
           <div className="flex-1 overflow-y-auto">
             <Routes>
-              <Route path="/" element={<CaptureScreen />} />
-              <Route path="/review" element={<ReviewScreen />} />
-              <Route path="/timeline" element={<EvidenceTimeline />} />
-              <Route path="/consent" element={<ConsentScreen />} />
-              <Route path="/export" element={<ExportScreen />} />
+              <Route path="/welcome" element={<WelcomeScreen />} />
+              <Route
+                path="/"
+                element={
+                  <RequireProfile>
+                    <CaptureScreen />
+                  </RequireProfile>
+                }
+              />
+              <Route
+                path="/review"
+                element={
+                  <RequireProfile>
+                    <ReviewScreen />
+                  </RequireProfile>
+                }
+              />
+              <Route
+                path="/timeline"
+                element={
+                  <RequireProfile>
+                    <EvidenceTimeline />
+                  </RequireProfile>
+                }
+              />
+              <Route
+                path="/consent"
+                element={
+                  <RequireProfile>
+                    <ConsentScreen />
+                  </RequireProfile>
+                }
+              />
+              <Route
+                path="/export"
+                element={
+                  <RequireProfile>
+                    <ExportScreen />
+                  </RequireProfile>
+                }
+              />
             </Routes>
           </div>
           <p className="shrink-0 border-t border-border bg-card px-3 py-1.5 text-center text-[9px] text-muted-foreground">
