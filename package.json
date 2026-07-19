@@ -7,10 +7,11 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsx --test benchmark/nhanes_stage/*.test.ts",
     "validate:schemas": "npx ajv-cli compile -s schema/evidence-capsule.schema.json --spec=draft2020 -c ajv-formats && npx ajv-cli compile -s schema/consent-receipt.schema.json --spec=draft2020 -c ajv-formats",
     "validate:examples": "tsx examples/validate.ts",
-    "benchmark": "tsx benchmark/run.ts"
+    "benchmark": "tsx benchmark/run.ts",
+    "benchmark:nhanes": "tsx benchmark/nhanes_stage/run.ts"
   },
   "keywords": [],
   "author": "",
