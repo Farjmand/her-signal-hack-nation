@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useLocation, useNavigate } from "react-router"
+import { Check } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -7,6 +8,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { SafetyBanner } from "@/components/SafetyBanner"
+import { Eyebrow } from "@/components/Eyebrow"
+import { cn } from "@/lib/utils"
 import { saveCapsule } from "@/lib/api"
 import type { EvidenceCapsule, EvidenceCapsuleFieldName, Severity } from "@/lib/types"
 
@@ -24,10 +27,21 @@ interface FieldWrapperProps {
 function FieldWrapper({ field, needsReview, label, children }: FieldWrapperProps) {
   const flagged = needsReview.includes(field)
   return (
-    <div className={`space-y-1 rounded-md p-2 ${flagged ? "border border-amber-400 bg-amber-50 dark:bg-amber-950" : ""}`}>
-      <div className="flex items-center gap-2">
-        <Label>{label}</Label>
-        {flagged && <Badge variant="outline" className="border-amber-500 text-amber-700 dark:text-amber-300">Needs review</Badge>}
+    <div
+      className={cn(
+        "space-y-2 rounded-lg border p-3.5",
+        flagged ? "border-warning/40 bg-warning-tint" : "border-transparent bg-secondary/60"
+      )}
+    >
+      <div className="flex items-center justify-between gap-2">
+        <Label className="font-mono text-[10.5px] font-medium uppercase tracking-wide text-muted-foreground">
+          {label}
+        </Label>
+        {flagged && (
+          <Badge className="border-warning/40 bg-transparent font-mono text-[10px] text-warning-foreground" variant="outline">
+            Needs review
+          </Badge>
+        )}
       </div>
       {children}
     </div>
@@ -47,15 +61,15 @@ export function ReviewScreen() {
 
   if (!capsule) {
     return (
-      <main className="min-h-svh flex items-center justify-center p-8">
-        <Card className="max-w-md w-full">
+      <main className="flex flex-col items-center px-4 pt-14 pb-4">
+        <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>No capsule to review</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
               Capture an entry first.{" "}
-              <button className="underline" onClick={() => navigate("/")}>
+              <button className="text-primary underline" onClick={() => navigate("/")}>
                 Go back
               </button>
             </p>
@@ -96,20 +110,23 @@ export function ReviewScreen() {
 
   if (saved) {
     return (
-      <main className="min-h-svh flex items-center justify-center p-8">
-        <Card className="max-w-md w-full">
-          <CardHeader>
-            <CardTitle>Saved</CardTitle>
+      <main className="flex flex-col items-center px-4 pt-14 pb-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="items-center text-center">
+            <div className="flex size-14 items-center justify-center rounded-full bg-accent">
+              <Check className="size-6 text-accent-foreground" />
+            </div>
+            <CardTitle className="mt-3 text-lg">Entry saved</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3 text-center">
             <p className="text-sm text-muted-foreground">
-              Your evidence capsule was recorded.
+              It's in your timeline, ready to bring to your next appointment.
             </p>
-            <Button onClick={() => navigate("/timeline")} className="w-full">
+            <Button onClick={() => navigate("/timeline")} className="h-11 w-full">
               View timeline
             </Button>
-            <Button onClick={() => navigate("/")} variant="outline" className="w-full">
-              Capture another entry
+            <Button onClick={() => navigate("/")} variant="outline" className="h-11 w-full">
+              Log another entry
             </Button>
           </CardContent>
         </Card>
@@ -118,26 +135,33 @@ export function ReviewScreen() {
   }
 
   return (
-    <main className="min-h-svh p-8">
+    <main className="p-4">
       <div className="mx-auto max-w-lg space-y-4">
         <SafetyBanner />
+
+        <div>
+          <Eyebrow>Review before saving</Eyebrow>
+          <h1 className="mt-2 text-xl font-semibold tracking-tight">Confirm or correct each field</h1>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            AI never silently finalizes health data. Low-confidence fields are flagged — fill them in or
+            leave as reported.
+          </p>
+        </div>
+
         <Card>
-          <CardHeader>
-            <CardTitle>Review your entry</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-1">
-              <Label>Original note</Label>
-              <p className="rounded-md border bg-muted/50 p-2 text-sm text-muted-foreground">
-                {capsule.source_text}
-              </p>
-              <p className="text-xs text-muted-foreground">
+          <CardContent className="space-y-4 pt-4">
+            <div className="space-y-1 rounded-lg border bg-secondary/60 p-3.5">
+              <Label className="font-mono text-[10.5px] font-medium uppercase tracking-wide text-muted-foreground">
+                Original note
+              </Label>
+              <p className="text-sm text-foreground/90 italic">"{capsule.source_text}"</p>
+              <p className="pt-1 text-xs text-muted-foreground">
                 AI confidence: {Math.round(capsule.ai_confidence * 100)}%
               </p>
             </div>
 
             <FieldWrapper field="symptoms" needsReview={nr} label="Symptoms (comma-separated)">
-              <Input value={symptomsText} onChange={(e) => setSymptomsText(e.target.value)} />
+              <Input value={symptomsText} onChange={(e) => setSymptomsText(e.target.value)} className="bg-background" />
             </FieldWrapper>
 
             <FieldWrapper field="severity" needsReview={nr} label="Severity">
@@ -147,7 +171,7 @@ export function ReviewScreen() {
                 onChange={(e) => update("severity", e.target.value as Severity)}
               >
                 <option value="low">Low</option>
-                <option value="medium">Medium</option>
+                <option value="medium">Moderate</option>
                 <option value="high">High</option>
               </select>
             </FieldWrapper>
@@ -156,6 +180,8 @@ export function ReviewScreen() {
               <Input
                 value={capsule.duration ?? ""}
                 onChange={(e) => update("duration", e.target.value || null)}
+                placeholder="Not stated — add an estimate"
+                className="bg-background"
               />
             </FieldWrapper>
 
@@ -163,6 +189,7 @@ export function ReviewScreen() {
               <Textarea
                 value={capsule.functional_impact}
                 onChange={(e) => update("functional_impact", e.target.value)}
+                className="bg-background"
               />
             </FieldWrapper>
 
@@ -173,6 +200,7 @@ export function ReviewScreen() {
                 max={24}
                 value={capsule.sleep_hours ?? ""}
                 onChange={(e) => update("sleep_hours", e.target.value === "" ? null : Number(e.target.value))}
+                className="bg-background"
               />
             </FieldWrapper>
 
@@ -180,6 +208,8 @@ export function ReviewScreen() {
               <Input
                 value={capsule.cycle_context ?? ""}
                 onChange={(e) => update("cycle_context", e.target.value || null)}
+                placeholder="Not stated in note"
+                className="bg-background"
               />
             </FieldWrapper>
 
@@ -193,6 +223,8 @@ export function ReviewScreen() {
                 onChange={(e) =>
                   update("hormone_therapy_or_contraception_context", e.target.value || null)
                 }
+                placeholder="Not stated in note"
+                className="bg-background"
               />
             </FieldWrapper>
 
@@ -200,13 +232,14 @@ export function ReviewScreen() {
               <Input
                 value={capsule.wearable_context ?? ""}
                 onChange={(e) => update("wearable_context", e.target.value || null)}
+                className="bg-background"
               />
             </FieldWrapper>
 
             {saveError && <p className="text-sm text-destructive">{saveError}</p>}
 
-            <Button onClick={handleAccept} disabled={saving} className="w-full">
-              {saving ? "Saving..." : "Accept and save"}
+            <Button onClick={handleAccept} disabled={saving} className="h-11 w-full">
+              {saving ? "Saving..." : "Save to timeline"}
             </Button>
           </CardContent>
         </Card>

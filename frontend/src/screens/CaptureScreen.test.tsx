@@ -11,6 +11,7 @@ class FakeSpeechRecognition {
   onresult: ((event: unknown) => void) | null = null
   onerror: ((event: unknown) => void) | null = null
   onend: (() => void) | null = null
+  onaudiostart: (() => void) | null = null
   start = vi.fn()
   stop = vi.fn(() => {
     this.onend?.()
@@ -65,7 +66,8 @@ describe("CaptureScreen voice entry", () => {
     await user.click(screen.getByRole("button", { name: /record symptom by voice/i }))
     act(() => {
       fakeInstance.onresult?.({
-        results: [[{ transcript: "sharp pelvic pain today" }]],
+        resultIndex: 0,
+        results: [Object.assign([{ transcript: "sharp pelvic pain today" }], { isFinal: true })],
       })
     })
     expect(screen.getByPlaceholderText(/e.g. i had sharp pelvic pain/i)).toHaveValue("sharp pelvic pain today")

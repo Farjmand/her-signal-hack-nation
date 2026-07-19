@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { SafetyBanner } from "@/components/SafetyBanner"
+import { Eyebrow } from "@/components/Eyebrow"
 import { fetchCapsules, fetchConsentReceipts, revokeConsent } from "@/lib/api"
 import { buildResearchBundle, downloadJson } from "@/lib/deidentify"
 import { FIELD_LABELS, type ShareableField } from "@/lib/mockStudy"
@@ -54,16 +55,21 @@ export function ExportScreen() {
   }
 
   return (
-    <main className="min-h-svh p-8">
+    <main className="p-4">
       <div className="mx-auto max-w-lg space-y-4">
         <SafetyBanner />
-        <div className="flex items-center justify-between">
-          <h1 className="text-lg font-semibold">Consent &amp; export</h1>
+
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <Eyebrow>Consent receipts</Eyebrow>
+            <h1 className="mt-2 text-xl font-semibold tracking-tight">Export &amp; revoke sharing</h1>
+          </div>
           <Link to="/timeline" className={buttonVariants({ size: "sm", variant: "outline" })}>
-            Back to timeline
+            Timeline
           </Link>
         </div>
-        <p className="text-xs text-muted-foreground">
+
+        <p className="rounded-lg border border-dashed border-border p-3.5 text-xs leading-relaxed text-muted-foreground">
           This is a de-identification prototype for demo purposes — it is not a certified or
           regulatory-compliant de-identification process.
         </p>
@@ -71,9 +77,9 @@ export function ExportScreen() {
         {loading && <p className="text-sm text-muted-foreground">Loading...</p>}
         {error && <p className="text-sm text-destructive">{error}</p>}
         {!loading && receipts.length === 0 && (
-          <p className="text-sm text-muted-foreground">
+          <p className="rounded-lg border border-dashed border-border p-4 text-sm text-muted-foreground">
             No consent decisions yet.{" "}
-            <Link to="/consent" className="underline">
+            <Link to="/consent" className="text-primary underline">
               Review a study request
             </Link>
             .
@@ -90,11 +96,11 @@ export function ExportScreen() {
                   {receipt.revoked ? (
                     <Badge variant="destructive">Revoked</Badge>
                   ) : (
-                    <Badge variant="secondary">Active</Badge>
+                    <Badge className="bg-accent text-accent-foreground">Active</Badge>
                   )}
                 </CardHeader>
                 <CardContent className="space-y-3 text-sm">
-                  <p className="text-xs text-muted-foreground">
+                  <p className="font-mono text-[10.5px] text-muted-foreground">
                     {new Date(receipt.timestamp).toLocaleString()}
                   </p>
                   <div className="flex flex-wrap gap-1">

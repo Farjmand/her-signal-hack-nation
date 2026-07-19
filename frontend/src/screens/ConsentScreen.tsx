@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
 import { SafetyBanner } from "@/components/SafetyBanner"
+import { Eyebrow } from "@/components/Eyebrow"
 import { submitConsent } from "@/lib/api"
 import { MOCK_STUDY, FIELD_LABELS } from "@/lib/mockStudy"
 
@@ -38,32 +39,38 @@ export function ConsentScreen() {
   }
 
   return (
-    <main className="min-h-svh p-8">
+    <main className="p-4">
       <div className="mx-auto max-w-lg space-y-4">
         <SafetyBanner />
+
+        <div>
+          <Eyebrow>Research study</Eyebrow>
+          <h1 className="mt-2 text-xl font-semibold tracking-tight">{MOCK_STUDY.study_name}</h1>
+          <p className="mt-1 text-xs text-muted-foreground">{MOCK_STUDY.recipient}</p>
+        </div>
+
         <Card>
           <CardHeader>
-            <CardTitle>{MOCK_STUDY.study_name}</CardTitle>
+            <CardTitle className="text-sm font-medium">Purpose</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-1 text-sm">
-              <p>
-                <span className="text-muted-foreground">Requesting: </span>
-                {MOCK_STUDY.recipient}
-              </p>
-              <p>
-                <span className="text-muted-foreground">Purpose: </span>
-                {MOCK_STUDY.purpose}
-              </p>
-            </div>
+          <CardContent className="text-sm text-muted-foreground">{MOCK_STUDY.purpose}</CardContent>
+        </Card>
 
-            <div className="space-y-3 pt-2">
-              <p className="text-sm font-medium">
-                Choose which field categories to share. Nothing is shared by default.
-              </p>
+        <Card>
+          <CardContent className="space-y-4 pt-4">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Approve or decline each category — nothing is shared by default.
+            </p>
+
+            <div className="space-y-2">
               {MOCK_STUDY.requested_fields.map((field) => (
-                <div key={field} className="flex items-center justify-between">
-                  <Label htmlFor={`grant-${field}`}>{FIELD_LABELS[field]}</Label>
+                <div
+                  key={field}
+                  className="flex items-center justify-between gap-3 rounded-lg border bg-secondary/60 px-3.5 py-3"
+                >
+                  <Label htmlFor={`grant-${field}`} className="text-sm font-medium">
+                    {FIELD_LABELS[field]}
+                  </Label>
                   <Switch
                     id={`grant-${field}`}
                     checked={grants[field]}
@@ -79,12 +86,12 @@ export function ConsentScreen() {
 
             {error && <p className="text-sm text-destructive">{error}</p>}
 
-            <Button onClick={handleSubmit} disabled={saving} className="w-full">
+            <Button onClick={handleSubmit} disabled={saving} className="h-11 w-full">
               {saving
                 ? "Saving..."
                 : grantedCount === 0
                   ? "Save decision (sharing nothing)"
-                  : `Save decision (sharing ${grantedCount} field${grantedCount === 1 ? "" : "s"})`}
+                  : `Approve & generate receipt (${grantedCount} field${grantedCount === 1 ? "" : "s"})`}
             </Button>
           </CardContent>
         </Card>

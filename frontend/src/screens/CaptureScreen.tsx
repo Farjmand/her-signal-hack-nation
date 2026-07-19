@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { Link, useNavigate } from "react-router"
-import { Mic, Square } from "lucide-react"
+import { useNavigate } from "react-router"
+import { Mic, Square, ArrowRight } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { SafetyBanner } from "@/components/SafetyBanner"
+import { Eyebrow } from "@/components/Eyebrow"
 import { extractCapsule } from "@/lib/api"
 import { useSpeechRecognition } from "@/lib/useSpeechRecognition"
 
@@ -14,7 +15,7 @@ export function CaptureScreen() {
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
 
-  const { isSupported: voiceSupported, isListening, start, stop } = useSpeechRecognition({
+  const { isSupported: voiceSupported, isListening, error: voiceError, start, stop } = useSpeechRecognition({
     onResult: (transcript) => {
       setSourceText((prev) => (prev ? `${prev} ${transcript}` : transcript))
     },
@@ -35,17 +36,25 @@ export function CaptureScreen() {
   }
 
   return (
-    <main className="min-h-svh flex items-center justify-center p-8">
-      <div className="w-full max-w-lg space-y-4">
+    <main className="p-4">
+      <div className="mx-auto w-full max-w-lg space-y-4">
         <SafetyBanner />
-        <div className="flex justify-end">
-          <Link to="/timeline" className="text-sm text-muted-foreground underline">
-            View timeline
-          </Link>
+
+        <div>
+          <Eyebrow>New entry</Eyebrow>
+          <h1 className="mt-2 text-xl font-semibold tracking-tight text-balance">
+            Say what happened, in your own words
+          </h1>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            A sentence is enough. AI drafts the structured fields — nothing is saved until you review it.
+          </p>
         </div>
+
         <Card>
           <CardHeader>
-            <CardTitle>What happened today?</CardTitle>
+            <CardTitle className="text-xs font-mono font-medium uppercase tracking-wide text-muted-foreground">
+              Today's note
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <Textarea
@@ -54,6 +63,7 @@ export function CaptureScreen() {
               onChange={(e) => setSourceText(e.target.value)}
               rows={5}
               disabled={loading}
+              className="text-[15px]"
             />
             {voiceSupported && (
               <Button
@@ -75,9 +85,11 @@ export function CaptureScreen() {
                 )}
               </Button>
             )}
+            {voiceError && <p className="text-sm text-destructive">{voiceError}</p>}
             {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button onClick={handleSubmit} disabled={loading || !sourceText.trim()} className="w-full">
-              {loading ? "Extracting..." : "Capture"}
+            <Button onClick={handleSubmit} disabled={loading || !sourceText.trim()} className="h-11 w-full text-[14.5px]">
+              {loading ? "Extracting..." : "Save entry"}
+              {!loading && <ArrowRight className="ml-1" />}
             </Button>
           </CardContent>
         </Card>
