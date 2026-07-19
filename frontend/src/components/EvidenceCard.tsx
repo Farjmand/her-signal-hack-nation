@@ -1,7 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
-import type { EvidenceCapsule, Severity } from "@/lib/types"
+import type { EvidenceCapsule, PopulationContext, Severity } from "@/lib/types"
+
+function formatDistributionLabel(label: string): string {
+  return label.replaceAll("_", " ")
+}
 
 const severityDot: Record<Severity, string> = {
   low: "bg-muted-foreground/50",
@@ -23,7 +27,13 @@ function formatDate(iso: string): string {
   })
 }
 
-export function EvidenceCard({ capsule }: { readonly capsule: EvidenceCapsule }) {
+export function EvidenceCard({
+  capsule,
+  populationContext
+}: {
+  readonly capsule: EvidenceCapsule
+  readonly populationContext?: PopulationContext | null
+}) {
   const hasContext =
     capsule.cycle_context || capsule.hormone_therapy_or_contraception_context || capsule.wearable_context
 
@@ -76,6 +86,22 @@ export function EvidenceCard({ capsule }: { readonly capsule: EvidenceCapsule })
                 <p>Hormone/contraception: {capsule.hormone_therapy_or_contraception_context}</p>
               )}
               {capsule.wearable_context && <p>Wearable: {capsule.wearable_context}</p>}
+            </div>
+          )}
+          {populationContext && (
+            <div className="mt-2 space-y-1 rounded-md border border-border bg-muted/30 p-2 text-xs text-muted-foreground">
+              <p className="font-mono text-[10px] font-medium uppercase tracking-wide text-primary">
+                Population context (NHANES)
+              </p>
+              <p>
+                Respondents aged {populationContext.ageBand} in a national health survey most commonly reported:{" "}
+                {Object.entries(populationContext.distribution)
+                  .sort((a, b) => b[1] - a[1])
+                  .slice(0, 1)
+                  .map(([label, share]) => `${formatDistributionLabel(label)} (${(share * 100).toFixed(0)}%)`)}
+                . General population context, not specific to this entry's symptom.
+              </p>
+              <p>{populationContext.disclaimer}</p>
             </div>
           )}
         </CardContent>
