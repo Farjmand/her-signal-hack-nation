@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { EvidenceCard } from "@/components/EvidenceCard"
 import { SafetyBanner } from "@/components/SafetyBanner"
 import { Eyebrow } from "@/components/Eyebrow"
+import { PopulationContextCard } from "@/components/PopulationContextCard"
 import { fetchCapsules } from "@/lib/api"
 import type { EvidenceCapsule } from "@/lib/types"
 
@@ -53,6 +54,10 @@ export function EvidenceTimeline() {
           {capsules.map((capsule) => (
             <EvidenceCard key={capsule.event_id} capsule={capsule} />
           ))}
+        </div>
+
+        <div className="border-t border-border pt-4">
+          <PopulationContextCard />
         </div>
       </div>
     </main>
