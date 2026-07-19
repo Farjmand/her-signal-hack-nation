@@ -7,7 +7,17 @@ import type { EvidenceCapsule } from "../types.js"
 
 export const extractRouter = Router()
 
-const openai = new OpenAI()
+// Lazily instantiated: constructing OpenAI() throws synchronously if
+// OPENAI_API_KEY is missing. Since ES module imports execute before
+// index.ts's own top-level code runs, a module-scope `new OpenAI()` here
+// would crash the entire process on startup -- taking down /health and
+// every other route -- if the key isn't configured, rather than failing
+// only this endpoint on first use.
+let openai: OpenAI | null = null
+function getOpenAIClient(): OpenAI {
+  openai ??= new OpenAI()
+  return openai
+}
 
 const extractionFieldNames = [
   "symptoms",
@@ -74,7 +84,7 @@ extractRouter.post("/", async (req, res) => {
   const { source_text } = parsed.data
 
   try {
-    const completion = await openai.chat.completions.parse({
+    const completion = await getOpenAIClient().chat.completions.parse({
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
