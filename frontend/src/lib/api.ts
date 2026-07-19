@@ -1,4 +1,4 @@
-import type { ConsentReceipt, ConsentReceiptFieldDecision, EvidenceCapsule } from "@/lib/types"
+import type { ConsentReceipt, ConsentReceiptFieldDecision, EvidenceCapsule, PopulationContext } from "@/lib/types"
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:4000"
 
@@ -62,5 +62,14 @@ export async function submitConsent(request: {
 export async function revokeConsent(receiptId: string): Promise<ConsentReceipt> {
   const res = await fetch(`${API_URL}/api/consent/${receiptId}/revoke`, { method: "PATCH" })
   if (!res.ok) throw new Error(`Failed to revoke consent: ${res.status}`)
+  return res.json()
+}
+
+export async function fetchPopulationContext(age: number): Promise<PopulationContext> {
+  const res = await fetch(`${API_URL}/api/population-context?age=${age}`)
+  if (!res.ok) {
+    const body = await res.json().catch(() => null)
+    throw new Error(body?.error ?? `Failed to fetch population context: ${res.status}`)
+  }
   return res.json()
 }

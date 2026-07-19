@@ -52,3 +52,14 @@ export interface ConsentReceipt {
   revoked: boolean
   revoked_at: string | null
 }
+
+// Population-level NHANES statistics only -- never a per-individual
+// prediction, diagnosis, or risk assessment. Mirrors
+// backend/src/routes/populationContext.ts's response shape.
+export interface PopulationContext {
+  ageBand: string
+  n: number
+  distribution: Record<string, number>
+  source: string
+  disclaimer: string
+}
