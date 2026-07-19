@@ -1,0 +1,104 @@
+{
+  "source": "NHANES 2017-2018 national survey (RHQ_J + DEMO_J)",
+  "generatedAt": "2026-07-19T11:50:46.829Z",
+  "disclaimer": "Population-level statistics from a real national survey -- not clinical validation, not a diagnosis, and not a prediction about any individual.",
+  "ageBands": [
+    {
+      "band": "18-22",
+      "minAge": 18,
+      "maxAge": 22,
+      "n": 226,
+      "distribution": {
+        "premenopausal": 0.9424778761061947,
+        "postmenopausal": 0.04424778761061947,
+        "perimenopausal_indeterminate": 0.01327433628318584
+      }
+    },
+    {
+      "band": "23-27",
+      "minAge": 23,
+      "maxAge": 27,
+      "n": 184,
+      "distribution": {
+        "premenopausal": 0.9510869565217391,
+        "postmenopausal": 0.03260869565217391,
+        "perimenopausal_indeterminate": 0.016304347826086956
+      }
+    },
+    {
+      "band": "28-32",
+      "minAge": 28,
+      "maxAge": 32,
+      "n": 198,
+      "distribution": {
+        "postmenopausal": 0.045454545454545456,
+        "premenopausal": 0.9242424242424242,
+        "perimenopausal_indeterminate": 0.030303030303030304
+      }
+    },
+    {
+      "band": "33-37",
+      "minAge": 33,
+      "maxAge": 37,
+      "n": 201,
+      "distribution": {
+        "premenopausal": 0.9303482587064676,
+        "postmenopausal": 0.06467661691542288,
+        "perimenopausal_indeterminate": 0.004975124378109453
+      }
+    },
+    {
+      "band": "38-42",
+      "minAge": 38,
+      "maxAge": 42,
+      "n": 196,
+      "distribution": {
+        "premenopausal": 0.8418367346938775,
+        "postmenopausal": 0.14795918367346939,
+        "perimenopausal_indeterminate": 0.01020408163265306
+      }
+    },
+    {
+      "band": "43-47",
+      "minAge": 43,
+      "maxAge": 47,
+      "n": 191,
+      "distribution": {
+        "premenopausal": 0.7696335078534031,
+        "perimenopausal_indeterminate": 0.005235602094240838,
+        "postmenopausal": 0.225130890052356
+      }
+    },
+    {
+      "band": "48-52",
+      "minAge": 48,
+      "maxAge": 52,
+      "n": 188,
+      "distribution": {
+        "postmenopausal": 0.5585106382978723,
+        "premenopausal": 0.44148936170212766
+      }
+    },
+    {
+      "band": "53-57",
+      "minAge": 53,
+      "maxAge": 57,
+      "n": 248,
+      "distribution": {
+        "postmenopausal": 0.875,
+        "premenopausal": 0.11290322580645161,
+        "perimenopausal_indeterminate": 0.012096774193548387
+      }
+    },
+    {
+      "band": "58-59",
+      "minAge": 58,
+      "maxAge": 59,
+      "n": 76,
+      "distribution": {
+        "postmenopausal": 0.9736842105263158,
+        "perimenopausal_indeterminate": 0.02631578947368421
+      }
+    }
+  ]
+}
