@@ -2,3 +2,5 @@ node_modules
 dist
 *.log
 .DS_Store
+benchmark/nhanes_stage/.raw
+benchmark/nhanes_stage/venv
