@@ -14,6 +14,7 @@
 - [ ] 2.1 `POST /api/extract` (OpenAI structured output, extraction-only system prompt)
 - [ ] 2.2 `CaptureScreen`
 - [ ] 2.3 `ReviewScreen` (editable, confidence, needs_review, explicit accept → persist)
+- [x] 2.4 Voice symptom entry — `useSpeechRecognition` hook + mic button on `CaptureScreen`, transcribes speech into the source-text field, graceful fallback when unsupported
 - [ ] **Checkpoint B** — demo capture→extract→review end-to-end with real OpenAI call
 
 ## Phase 3 — Evidence card + Timeline

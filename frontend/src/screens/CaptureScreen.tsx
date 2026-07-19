@@ -1,16 +1,24 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router"
+import { Mic, Square } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { SafetyBanner } from "@/components/SafetyBanner"
 import { extractCapsule } from "@/lib/api"
+import { useSpeechRecognition } from "@/lib/useSpeechRecognition"
 
 export function CaptureScreen() {
   const [sourceText, setSourceText] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const navigate = useNavigate()
+
+  const { isSupported: voiceSupported, isListening, start, stop } = useSpeechRecognition({
+    onResult: (transcript) => {
+      setSourceText((prev) => (prev ? `${prev} ${transcript}` : transcript))
+    },
+  })
 
   async function handleSubmit() {
     if (!sourceText.trim()) return
@@ -47,6 +55,26 @@ export function CaptureScreen() {
               rows={5}
               disabled={loading}
             />
+            {voiceSupported && (
+              <Button
+                type="button"
+                variant="outline"
+                aria-label={isListening ? "Stop voice recording" : "Record symptom by voice"}
+                onClick={isListening ? stop : start}
+                disabled={loading}
+                className="w-full"
+              >
+                {isListening ? (
+                  <>
+                    <Square className="animate-pulse" /> Stop recording
+                  </>
+                ) : (
+                  <>
+                    <Mic /> Record symptom by voice
+                  </>
+                )}
+              </Button>
+            )}
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button onClick={handleSubmit} disabled={loading || !sourceText.trim()} className="w-full">
               {loading ? "Extracting..." : "Capture"}
