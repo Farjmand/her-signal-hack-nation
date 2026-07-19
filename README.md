@@ -1,7 +1,15 @@
 # HerSignal
 
 An AI-assisted symptom-evidence companion for hormonal health, with an
-embedded **ConsentLedger** trust layer.
+embedded **ConsentLedger** trust layer — and a reproducible benchmark built
+on real, public hormonal-health survey data.
+
+This project contributes across two of the challenge's infrastructure
+layers: **Application Infrastructure** (capture → AI extraction → human
+verification → evidence timeline → granular consent → de-identified export)
+and **Data & Benchmark Infrastructure** (a documented crosswalk and
+reproducible prediction benchmark built on real NHANES survey data — see
+[Benchmarks](#benchmarks) below).
 
 Women are often asked to recall months of complex symptoms in a single
 appointment. Researchers receive fragmented, decontextualized data.
@@ -27,6 +35,11 @@ consent — interoperable research data tomorrow.
   structured labels (see `DATASET_CARD.md`).
 - `benchmark/` — `run.ts` evaluates the extraction endpoint against
   `examples/`; `results.md` has the current numbers.
+- `benchmark/nhanes_stage/` — a second benchmark built on real, public
+  NHANES survey data: a documented crosswalk from NHANES reproductive-health
+  variables into the `EvidenceCapsule` vocabulary, and an explainable
+  age-only classifier predicting a reproductive-stage bucket (see
+  `DATASET_CARD_NHANES.md` and [Benchmarks](#benchmarks) below).
 - `docs/fhir-omop-mapping.md` — a documentation-only sketch of how this
   schema could map onto FHIR and OMOP CDM, for anyone building toward
   interoperability later.
@@ -95,19 +108,35 @@ Consent → Export.
 
 ```bash
 npm install
+npm test                   # runs the benchmark/nhanes_stage unit test suite
 npm run validate:schemas   # ajv-validates both JSON Schemas
 npm run validate:examples  # validates all 24 examples/*.json against schema
 npm run benchmark          # requires backend running; regenerates benchmark/results.md
+npm run benchmark:nhanes   # regenerates benchmark/nhanes_stage/results.md from the committed CSV
 ```
 
-## Benchmark
+## Benchmarks
 
-`benchmark/results.md` reports symptom extraction precision/recall/exact-match,
-severity and functional-impact accuracy, and ambiguity-flagging correctness
-against the 24 synthetic examples. It is explicitly labeled a **synthetic,
-preliminary extraction benchmark — not clinical validation** — see the file
-itself for methodology caveats (small n, single author, free-text matching
-limitations).
+This repo has two independent benchmarks, for two different tasks:
+
+**Extraction benchmark** — `benchmark/results.md` reports symptom extraction
+precision/recall/exact-match, severity and functional-impact accuracy, and
+ambiguity-flagging correctness against the 24 synthetic examples in
+`examples/`. Explicitly labeled a **synthetic, preliminary extraction
+benchmark — not clinical validation** — see the file itself for methodology
+caveats (small n, single author, free-text matching limitations).
+
+**NHANES reproductive-stage benchmark** — `benchmark/nhanes_stage/results.md`
+reports how well an explainable, age-only decision-stump classifier predicts
+a reproductive-stage bucket (premenopausal / postmenopausal /
+perimenopausal_indeterminate) against real NHANES 2017-2018 survey data
+(1,708 respondents after documented exclusions), evaluated against a
+majority-class baseline on a stratified, seeded train/val/test split. Built
+on public, non-credentialed government data (see `DATASET_CARD_NHANES.md`
+for provenance and `benchmark/nhanes_stage/fetch_and_convert.py` for the
+reproducible one-time data-prep step). Explicitly labeled **real survey
+data, not clinical validation** — RHQ031/RHQ060 are self-reported, not a
+hormone assay; see `results.md`'s Known Limitations section.
 
 ## Interoperability
 
