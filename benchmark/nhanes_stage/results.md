@@ -3,7 +3,7 @@
 **Real NHANES 2017-2018 survey data — population-level statistics, not
 clinical validation, not a diagnosis, and not a hormone assay result.**
 
-Generated: 2026-07-19T11:15:43.385Z
+Generated: 2026-07-19T11:50:46.829Z
 Source: NHANES 2017-2018 cycle, RHQ_J (reproductive health) + DEMO_J
 (demographics), merged on SEQN. See `fetch_and_convert.py` and
 `../../DATASET_CARD_NHANES.md` for provenance, license, and full methodology.
