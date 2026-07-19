@@ -4,20 +4,35 @@ import { buttonVariants } from "@/components/ui/button"
 import { EvidenceCard } from "@/components/EvidenceCard"
 import { SafetyBanner } from "@/components/SafetyBanner"
 import { Eyebrow } from "@/components/Eyebrow"
-import { PopulationContextCard } from "@/components/PopulationContextCard"
-import { fetchCapsules } from "@/lib/api"
-import type { EvidenceCapsule } from "@/lib/types"
+import { fetchCapsules, fetchPopulationContext } from "@/lib/api"
+import { getStoredAge } from "@/lib/userProfile"
+import type { EvidenceCapsule, PopulationContext } from "@/lib/types"
 
 export function EvidenceTimeline() {
   const [capsules, setCapsules] = useState<EvidenceCapsule[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [populationContext, setPopulationContext] = useState<PopulationContext | null>(null)
 
   useEffect(() => {
     fetchCapsules()
       .then(setCapsules)
       .catch((err) => setError(err instanceof Error ? err.message : "Failed to load timeline."))
       .finally(() => setLoading(false))
+  }, [])
+
+  useEffect(() => {
+    const age = getStoredAge()
+    if (age === null) return
+    // Same distribution applies to every card (age doesn't vary per entry --
+    // EvidenceCapsule intentionally has no age field), so this is fetched
+    // once here rather than per-card. A failure here (e.g. age outside the
+    // 18-59 NHANES range) just means no population context renders --
+    // silent, not an error banner, since it's supplementary context, not
+    // core timeline functionality.
+    fetchPopulationContext(age)
+      .then(setPopulationContext)
+      .catch(() => setPopulationContext(null))
   }, [])
 
   return (
@@ -52,12 +67,8 @@ export function EvidenceTimeline() {
 
         <div>
           {capsules.map((capsule) => (
-            <EvidenceCard key={capsule.event_id} capsule={capsule} />
+            <EvidenceCard key={capsule.event_id} capsule={capsule} populationContext={populationContext} />
           ))}
-        </div>
-
-        <div className="border-t border-border pt-4">
-          <PopulationContextCard />
         </div>
       </div>
     </main>
