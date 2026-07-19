@@ -4,6 +4,12 @@ This card describes the dataset in `examples/` — 24 synthetic symptom notes
 used to evaluate the `POST /api/extract` structured-extraction endpoint (see
 `benchmark/run.ts` and `benchmark/results.md`).
 
+> This repo has a second dataset card: [`DATASET_CARD_NHANES.md`](DATASET_CARD_NHANES.md)
+> describes a derived subset of the real, public NHANES 2017-2018 survey
+> used for a separate reproductive-stage benchmark task in
+> `benchmark/nhanes_stage/`. The two are unrelated datasets for two
+> different benchmark tasks — this card covers only `examples/`.
+
 ## Summary
 
 - **What it is:** 24 short, first-person, hand-written text notes describing
