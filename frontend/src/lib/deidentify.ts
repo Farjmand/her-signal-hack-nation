@@ -1,4 +1,4 @@
-import type { ConsentReceipt, EvidenceCapsule } from "@/lib/types"
+import type { ConsentReceipt, EvidenceCapsule, EvidenceCapsuleFieldName } from "@/lib/types"
 
 /**
  * Prototype de-identification only — see README/docs for the "de-identification
@@ -11,6 +11,22 @@ async function hashEventId(eventId: string): Promise<string> {
   const digest = await crypto.subtle.digest("SHA-256", data)
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 16)
 }
+
+// Defense in depth: source_text, event_id, and ai_confidence must never leave
+// this function, no matter what a consent receipt's `fields` array contains
+// (that array is free-text and not validated against this list upstream).
+// This allowlist is the actual enforcement point for "we never share your
+// original note" — not the mock study config, which could change.
+const EXPORTABLE_FIELDS: readonly EvidenceCapsuleFieldName[] = [
+  "symptoms",
+  "severity",
+  "duration",
+  "functional_impact",
+  "sleep_hours",
+  "cycle_context",
+  "hormone_therapy_or_contraception_context",
+  "wearable_context"
+]
 
 export interface ResearchBundle {
   study_id: string
@@ -25,7 +41,16 @@ export async function buildResearchBundle(
   receipt: ConsentReceipt,
   capsules: EvidenceCapsule[]
 ): Promise<ResearchBundle> {
-  const grantedFields = receipt.fields.filter((f) => f.granted).map((f) => f.field)
+  if (receipt.revoked) {
+    throw new Error("Cannot export: this consent has been revoked.")
+  }
+
+  const grantedFields = receipt.fields
+    .filter((f) => f.granted)
+    .map((f) => f.field)
+    .filter((field): field is EvidenceCapsuleFieldName =>
+      (EXPORTABLE_FIELDS as string[]).includes(field)
+    )
 
   const records = await Promise.all(
     capsules
@@ -35,7 +60,7 @@ export async function buildResearchBundle(
           research_id: await hashEventId(capsule.event_id)
         }
         for (const field of grantedFields) {
-          record[field] = (capsule as unknown as Record<string, unknown>)[field]
+          record[field] = capsule[field]
         }
         return record
       })

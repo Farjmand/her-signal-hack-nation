@@ -8,12 +8,27 @@ export const consentRouter = Router()
 
 export const CONSENT_SCHEMA_VERSION = "1.0.0"
 
+// Mirrors the export-side allowlist in frontend/src/lib/deidentify.ts.
+// source_text/event_id/ai_confidence are deliberately excluded — they must
+// never be requestable via consent, regardless of what a study config asks
+// for, since source_text is the one field this product promises to never share.
+const SHAREABLE_FIELD = z.enum([
+  "symptoms",
+  "severity",
+  "duration",
+  "functional_impact",
+  "sleep_hours",
+  "cycle_context",
+  "hormone_therapy_or_contraception_context",
+  "wearable_context"
+])
+
 const ConsentRequestSchema = z.object({
   study_id: z.string().min(1),
   study_name: z.string().min(1),
   purpose: z.string().min(1),
   recipient: z.string().min(1),
-  fields: z.array(z.object({ field: z.string().min(1), granted: z.boolean() })).min(1)
+  fields: z.array(z.object({ field: SHAREABLE_FIELD, granted: z.boolean() })).min(1)
 })
 
 interface ConsentRow {
