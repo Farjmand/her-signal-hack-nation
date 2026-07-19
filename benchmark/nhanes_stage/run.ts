@@ -8,7 +8,7 @@
  * val/test splits. Writes benchmark/nhanes_stage/results.md.
  *
  * This is a population-survey benchmark, not clinical validation -- see
- * results.md and ../../DATASET_CARD.md for full methodology and
+ * results.md and ../../DATASET_CARD_NHANES.md for full methodology and
  * limitations.
  */
 import fs from "node:fs"
@@ -156,7 +156,7 @@ clinical validation, not a diagnosis, and not a hormone assay result.**
 Generated: ${timestamp}
 Source: NHANES 2017-2018 cycle, RHQ_J (reproductive health) + DEMO_J
 (demographics), merged on SEQN. See \`fetch_and_convert.py\` and
-\`../../DATASET_CARD.md\` for provenance, license, and full methodology.
+\`../../DATASET_CARD_NHANES.md\` for provenance, license, and full methodology.
 
 ## Task
 
@@ -234,7 +234,7 @@ ${metricsSection(`Majority-class baseline (always predicts "${trainMajority}", t
   could reasonably beat this baseline.
 - **18-59 age band is this task's own scope choice**, not an NHANES
   restriction — chosen to match the adult population HerSignal's app
-  targets. See \`labels.ts\` and \`../../DATASET_CARD.md\`.
+  targets. See \`labels.ts\` and \`../../DATASET_CARD_NHANES.md\`.
 `
 
   fs.writeFileSync(outPath, md)

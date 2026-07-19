@@ -3,10 +3,10 @@
 **Real NHANES 2017-2018 survey data — population-level statistics, not
 clinical validation, not a diagnosis, and not a hormone assay result.**
 
-Generated: 2026-07-19T11:06:36.438Z
+Generated: 2026-07-19T11:15:43.385Z
 Source: NHANES 2017-2018 cycle, RHQ_J (reproductive health) + DEMO_J
 (demographics), merged on SEQN. See `fetch_and_convert.py` and
-`../../DATASET_CARD.md` for provenance, license, and full methodology.
+`../../DATASET_CARD_NHANES.md` for provenance, license, and full methodology.
 
 ## Task
 
@@ -141,4 +141,4 @@ Confusion matrix:
   could reasonably beat this baseline.
 - **18-59 age band is this task's own scope choice**, not an NHANES
   restriction — chosen to match the adult population HerSignal's app
-  targets. See `labels.ts` and `../../DATASET_CARD.md`.
+  targets. See `labels.ts` and `../../DATASET_CARD_NHANES.md`.
